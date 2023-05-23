@@ -1,0 +1,38 @@
+{% load static %}
+
+<!-- Navbar -->
+<nav class="p-5 bg-white border-b border-gray-200">
+
+    <!-- Menu (medium & large screens) -->
+    <div class="flex items-center justify-between">
+
+        <!-- Logo -->
+        <div class="pt-2 flex items-center">
+            <img src="{% static 'images/icons/lightning-charge-fill.svg' %}"  alt="logo" style="width: 2em"/>
+            <a href="/" class="text-2xl font-bold text-gray-800">MuscleMate</a>
+            {% comment %} <img src="{% static 'images/muscle-mate-logo.svg' %}"  alt="logo" style="width: 12em; margin-top: -.7em; sm:hidden"/> {% endcomment %}
+        </div>
+
+        <!-- Menu Items -->
+        <div class="text-black space-x-6 md:flex">
+        <a href="#" class="hover:text-darkGrayishBlue">myWorkouts</a>
+        <a>|</a>
+        {% comment %}{% url 'profiles' %}   {% endcomment %}
+        <a href={% url 'social_feed' %} class="hover:text-darkGrayishBlue">Home</a>
+        <a>|</a>
+        {% comment %} {% url 'documentation' %} {% endcomment %}
+        <a href="#" class="hover:text-darkGrayishBlue">myNutrition</a>
+        </div>
+
+        <!-- Profile Button -->
+        {% comment %} {% url 'dashboard' %} {% endcomment %}
+        <div class="flex items-center p-1 px-4 pt-1 text-white bg-black rounded-full baseline hover:bg-gray-500">
+            <img src="{% static 'images/icons/person-circle.svg' %}"  alt="logo" style="width: 2em"/>
+            <a href="#" >
+                Profile
+            </a>
+        <div>
+        
+
+    </div>
+</nav>

@@ -1,0 +1,88 @@
+{% extends 'main.html' %}
+{% load custom_filters %}
+{% load static %}
+
+
+{% block content %}
+<style>
+    /* prevent the page from scrolling */
+    body {
+        overflow: hidden;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+</style>
+<main class="container mx-auto px-4 py-8 h-screen">
+    <h1 class="text-4xl font-bold mb-4">Welcome to the FitNut Social Feed!</h1>
+
+    <div class="flex h-full">
+        <!-- Left Sidebar -->
+        <div class="w-1/4 h-full overflow-y-auto pr-4 sticky top-0">
+            <!-- Insert content for the left sidebar here -->
+            <h2 class="text-2xl font-bold mb-4">Users</h2>
+            <ul>
+                <li>User 1</li>
+                <li>User 2</li>
+                <li>User 3</li>
+                <!-- Include more users here -->
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="w-1/2 h-full overflow-y-auto px-4">
+            <!-- Display posts from the social feed -->
+            {% for post in posts %}
+				<div class="bg-white rounded-lg shadow-md p-6 mb-4">
+					<p class="text-2xl font-bold">
+						{{ post.profile_name }} @{{ post.author }} <span class="text-gray-600">·</span> {{ post.timestamp|format_timestamp }}
+					</p>
+					<p class="text-gray-800">{{ post.content }}</p>
+					{% for medium in post.media.all %}
+                        {% if medium.image %}
+                            <img src="{{ medium.image.url }}" class="pt-1" alt="Post image">
+                        {% endif %}
+                        {% if medium.video %}
+                            <!-- Display a video player for the video -->
+                            <video width="320" height="240" controls>
+                                <source src="{{ medium.video.url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        {% endif %}
+                    {% endfor %}
+                                    
+					<div class="mx-10 pt-2 flex justify-between">
+						<a href="#" class="flex justify-center">
+							<img src="{% static 'images/icons/chat-left.svg' %}"></img> 
+							<p class="ml-2">{{ post.comments_count_anno }}</p>
+						</a>
+						<a href="#" class="flex justify-center">
+							<img src="{% static 'images/icons/suit-heart.svg' %}"></img>
+							<p class="ml-2">{{ post.likes_count_anno }}</p>
+						</a>
+						<a href="#" class="flex justify-center">
+							<img src="{% static 'images/icons/bar-chart-line.svg' %}"></img>
+							<p class="ml-2">{{ post.views_count_anno }}</p>
+						</a>
+						<a href="#" class="flex justify-center">
+							<img src="{% static 'images/icons/upload.svg' %}"></img> 
+							<p class="ml-2">{{ post.shares_count_anno }}</p>
+						</a>
+					</div>
+								
+				</div>
+            {% endfor %}
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="w-1/4 h-full overflow-y-auto pl-4 sticky top-0">
+            <!-- Insert content for the right sidebar here -->
+            <h2 class="text-2xl font-bold mb-4">Trending Topics</h2>
+            <ul>
+                <li>Topic 1</li>
+                <li>Topic 2</li>
+                <li>Topic 3</li>
+                <!-- Include more topics here -->
+            </ul>
+        </div>
+    </div>
+</main>
+{% endblock %}
