@@ -17,7 +17,7 @@ from users.models import Profile
 class WorkoutType(models.Model):
     name = models.CharField(max_length=100)
     created_by = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
-    body_part_choices = [ 
+    body_part_choices = [
         ('CORE', 'Core'),
         ('ARMS', 'Arms'),
         ('BACK', 'Back'),
@@ -58,13 +58,12 @@ class Workout(models.Model):
     workout_type = models.ForeignKey(WorkoutType, on_delete=models.CASCADE)
     notes = models.TextField(blank=True)
     is_completed = models.BooleanField(default=False)
-    rating = models.PositiveIntegerField(null=True, blank=True)
     is_favorite = models.BooleanField(default=False)
     likes = models.ManyToManyField(Profile, related_name='liked_workouts', blank=True)
     shares = models.ManyToManyField(Profile, related_name='shared_workouts', blank=True)
     comments = models.ManyToManyField('social.Comment', blank=True)
+    views = models.ManyToManyField(Profile, related_name='viewed_workouts', blank=True)
     rating = models.PositiveIntegerField(null=True, blank=True, validators=[MinValueValidator(1), MaxValueValidator(5)])
-
 
     def __str__(self):
         return f"Workout on {self.date}"
@@ -74,6 +73,7 @@ class Workout(models.Model):
 
 class Exercise(models.Model):
     name = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
     created_by = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
     sets = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     reps = models.PositiveIntegerField(validators=[MinValueValidator(1)])
@@ -86,7 +86,6 @@ class Exercise(models.Model):
     def __str__(self):
         return self.name
 
-
 # Section: Nutrition
 class Food(models.Model):
     name = models.CharField(max_length=100)
@@ -95,6 +94,12 @@ class Food(models.Model):
     carbohydrates = models.PositiveIntegerField()
     proteins = models.PositiveIntegerField()
     fats = models.PositiveIntegerField()
+    sugars = models.PositiveIntegerField(null=True, blank=True)
+    fiber = models.PositiveIntegerField(null=True, blank=True)
+    saturated_fats = models.PositiveIntegerField(null=True, blank=True)
+    trans_fats = models.PositiveIntegerField(null=True, blank=True)
+    cholesterol = models.PositiveIntegerField(null=True, blank=True)
+    sodium = models.PositiveIntegerField(null=True, blank=True)
     likes = models.ManyToManyField(Profile, related_name='liked_foods', blank=True)
     shares = models.ManyToManyField(Profile, related_name='shared_foods', blank=True)
     comments = models.ManyToManyField('social.Comment', blank=True)
@@ -104,14 +109,15 @@ class Food(models.Model):
 
 class NutritionPlan(models.Model):
     name = models.CharField(max_length=100)
-    created_by = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
+    created_by = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='created_nutrition_plans')
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='user_nutrition_plans')
     likes = models.ManyToManyField(Profile, related_name='liked_nutrition_plans', blank=True)
     shares = models.ManyToManyField(Profile, related_name='shared_nutrition_plans', blank=True)
     comments = models.ManyToManyField('social.Comment', blank=True)
 
-    
     def __str__(self):
         return self.name
+
 
 class Meal(models.Model):
     name = models.CharField(max_length=100)
@@ -140,7 +146,6 @@ class NutritionEntry(models.Model):
     class Meta:
         ordering = ['-date']
 
-
 # Section: Other
 class Goal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -160,6 +165,7 @@ class ProgressPhoto(models.Model):
     notes = models.TextField(blank=True)
     likes = models.ManyToManyField(Profile, related_name='liked_progress_photos', blank=True)
     shares = models.ManyToManyField(Profile, related_name='shared_progress_photos', blank=True)
+    views = models.ManyToManyField(Profile, related_name='viewed_progress_photos', blank=True)
     comments = models.ManyToManyField('social.Comment', blank=True)
 
     def __str__(self):
@@ -185,4 +191,3 @@ class Measurement(models.Model):
 
     class Meta:
         ordering = ['-date']
-
