@@ -1,0 +1,131 @@
+<div>
+    <!-- Title -->
+    <h2 class="font-bold text-3xl text-black mb-4">Log Workout</h2>
+    <div class="bg-white rounded shadow-lg p-4 px-4">
+
+        <!-- Grid Layout -->
+        <div class="grid gap-4 gap-y-2 text-sm grid-cols-3">
+
+            <!-- Date Input -->
+            <div class="col-span-1">
+                <label>Date</label>
+                <input type="date" class="h-10 border mt-1 rounded px-4 w-full" />
+            </div>
+
+            <!-- Duration Input -->
+            <div class="col-span-1">
+                <label>Duration (minutes)</label>
+                <input type="number" class="h-10 border mt-1 rounded px-4 w-full" />
+            </div>
+
+            <!-- Calories Burned Input -->
+            <div class="col-span-1">
+                <label>Calories Burned</label>
+                <input type="number" class="h-10 border mt-1 rounded px-4 w-full" />
+            </div>
+
+            <!-- Workout Type Input -->
+            <div class="col-span-1">
+                <label>Workout Type</label>
+                <select class="h-10 border mt-1 rounded px-4 w-full">
+                    <!-- options... -->
+                </select>
+            </div>
+
+            <!-- Button to add and remove sets -->
+            <div class="col-span-1 text-left">
+                <label>Sets </label>
+                <div class="mt-1">
+                    <button onclick="addSet()" class="bg-black hover:bg-gray-500 text-white font-bold py-2 px-4 rounded mr-2">[+]</button>
+                    <button onclick="removeSet()" class="bg-black hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">[-]</button>
+                </div>
+            </div>
+
+            <!-- The container where new fields will be inserted -->
+            <div id="dynamic-container"></div>
+
+            <script>
+            let numberOfSets = 1;
+
+            function generateFields() {
+                const container = document.getElementById('dynamic-container');
+                container.innerHTML = '';
+
+                for(let i = 0; i < numberOfSets; i++) {
+                    const setField = `
+                        <div class="col-span-3 flex justify-between items-center">
+                            <h3 class="pt-5 font-bold inline-block pr-3">Set&nbsp;${i+1} </h3>
+                            <div class="grid gap-4 gap-y-4 text-sm grid-cols-12">
+
+                                <div class="col-span-6">
+                                    <label>Weight:</label>
+                                    <input type="number" class="h-10 border mt-1 rounded px-4 w-full" />
+                                </div>
+
+                                <div class="col-span-6">
+                                    <label>Reps:</label>
+                                    <input type="number" class="h-10 border mt-1 rounded px-4 w-full" />
+                                </div>
+                            </div>
+                        </div>`;
+                    container.innerHTML += setField;
+                }
+            }
+            window.onload = generateFields; // generate the first set on page load
+            </script>
+
+            <script>
+            function addSet() {
+                numberOfSets += 1;
+                generateFields();
+            }
+
+            function removeSet() {
+                if(numberOfSets > 1) {
+                    numberOfSets -= 1;
+                    generateFields();
+                }
+            }
+            </script>
+
+            <!-- Notes Input -->
+            <div class="md:col-span-3">
+                <label>Notes</label>
+                <textarea class="block w-full rounded mt-1" rows="2" placeholder="How'd your workout go?"></textarea>
+            </div>
+
+            <!-- Is Completed Input -->
+            <div class="col-span-1">
+                <label class="inline-flex items-center mt-3">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600"><span class="ml-2 text-gray-700">Completed</span>
+                </label>
+            </div>
+
+            <!-- Is Favorite Input -->
+            <div class="col-span-1">
+                <label class="inline-flex items-center mt-3">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600"><span class="ml-2 text-gray-700">Favorite</span>
+                </label>
+            </div>
+
+            <!-- Rating Input -->
+            <div class="col-span-1">
+                <label>Rating</label>
+                <input type="number" min="1" max="5" class="h-10 border mt-1 rounded px-4 w-full" />
+            </div>
+
+            <!-- Submit Button -->
+            <div class="md:col-span-3 text-right">
+                <button class="bg-black hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">Log & Post</button>
+            </div>
+
+            <!-- Additional Buttons -->
+            <div class="md:col-span-3 text-right mt-4">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">My Workouts</button>
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">Analytics</button>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Profile</button>
+            </div>
+
+        </div>
+    </div>
+</div>

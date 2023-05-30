@@ -15,7 +15,7 @@
 
         <!-- Menu Items -->
         <div class="text-black space-x-6 md:flex">
-        <a href="#" class="hover:text-darkGrayishBlue">myWorkouts</a>
+        <a href={% url 'workout_index' %} class="hover:text-darkGrayishBlue">myWorkouts</a>
         <a>|</a>
         {% comment %}{% url 'profiles' %}   {% endcomment %}
         <a href={% url 'social_feed' %} class="hover:text-darkGrayishBlue">Home</a>

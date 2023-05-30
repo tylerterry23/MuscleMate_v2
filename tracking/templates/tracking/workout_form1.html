@@ -1,0 +1,141 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class='container mx-auto'>
+    <!-- Header -->
+    <div class='my-6'>
+        <div class="flex justify-center items-center">
+            <h2 class="font-bold text-3xl text-black mr-2">Afternoon Workout</h2>
+            <button class="border border-black rounded p-1">
+                <img src="{% static 'images/icons/three-dots.svg' %}" alt="logo" />
+            </button>
+        </div>
+        <h3 class="text-center">Date: MM/DD/YYYY</h3>
+    </div>
+
+    <div id="exercisesContainer" class="my-4">
+        <!-- Rows of inputs will be added here -->
+    </div>
+
+    <div class="flex justify-center">
+        <button id="addExerciseButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4">Add Exercise</button>
+    </div>
+
+    <div class="flex justify-center">
+        <button id="submitWorkoutButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4 hidden">Submit Workout</button>
+    </div>
+</div>
+
+<script>
+    let exerciseCount = 0;
+
+    document.getElementById('addExerciseButton').addEventListener('click', function () {
+        // create a new div for the exercise
+        var exerciseDiv = document.createElement("div");
+
+        // add some styling to differentiate each row
+        exerciseDiv.className = "mb-6 shadow rounded bg-white p-4 " + (exerciseCount % 2 === 0 ? "bg-gray-100" : "bg-gray-200");
+
+        // create the exercise selection dropdown
+        var select = document.createElement("select");
+        select.className = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
+        select.innerHTML = `
+            <option value="Squat">Squat</option>
+            <option value="Bench Press">Bench Press</option>
+            <!-- Add more options here -->
+        `;
+
+        select.addEventListener('change', function () {
+            // create a new form
+            var form = createExerciseForm();
+
+            // add the form to the exercise div
+            exerciseDiv.appendChild(form);
+
+            // add a button to add more forms to the exercise div
+            var addSetButton = document.createElement("button");
+            addSetButton.className = "mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded";
+            addSetButton.textContent = "+ Add Set";
+            addSetButton.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // create a new form
+                var newForm = createExerciseForm();
+
+                // add the new form to the exercise div
+                exerciseDiv.insertBefore(newForm, addSetButton);
+            });
+            exerciseDiv.appendChild(addSetButton);
+
+            // make the submit button visible if it isn't already
+            document.getElementById('submitWorkoutButton').classList.remove('hidden');
+        });
+
+        // add the exercise selection dropdown to the exercise div
+        exerciseDiv.appendChild(select);
+
+        // add the exercise div to the container
+        document.getElementById('exercisesContainer').appendChild(exerciseDiv);
+
+        // increment the exercise count
+        exerciseCount += 1;
+    });
+
+    function createExerciseForm() {
+        // create a new form
+        var form = document.createElement("form");
+        form.className = "grid gap-4 gap-y-2 text-sm grid-cols-5 mt-4";
+        form.innerHTML = `
+            <div class="col-span-1 flex items-center">
+                <label class="block text-sm font-bold mb-2">Set</label>
+            </div>
+            <div class="col-span-1 flex items-center">
+                <label class="block text-sm font-bold mb-2">Previous</label>
+            </div>
+            <div class="col-span-1 flex items-center">
+                <label class="block text-sm font-bold mb-2">lbs</label>
+            </div>
+            <div class="col-span-1 flex items-center">
+                <label class="block text-sm font-bold mb-2">Reps</label>
+            </div>
+            <div class="col-span-1 flex items-center">
+                <label class="block text-sm font-bold mb-2">Completed</label>
+            </div>
+            <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="set" required />
+
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="previous" placeholder="150 lb x 15" required />
+
+            <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="lbs" required />
+
+            <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="reps" required />
+
+            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="completed" />
+
+        `;
+        return form;
+    }
+
+    document.getElementById('submitWorkoutButton').addEventListener('click', function () {
+        // gather all the exercises
+        var exercises = Array.from(document.getElementById('exercisesContainer').children).map(function (exerciseDiv) {
+            return Array.from(exerciseDiv.querySelectorAll('form')).map(function (form) {
+                var formData = new FormData(form);
+                return {
+                    set: formData.get('set'),
+                    previous: formData.get('previous'),
+                    lbs: formData.get('lbs'),
+                    reps: formData.get('reps'),
+                    completed: formData.get('completed') === 'on',
+                };
+            });
+        });
+
+        // TODO: do something with the exercises (e.g., send them to the server)
+        console.log(exercises);
+    });
+</script>
+
+{% endblock %}
+

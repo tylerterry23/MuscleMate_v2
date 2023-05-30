@@ -1,0 +1,191 @@
+/* ------- Full Page ------- */
+
+
+html {
+   /* disallow page to overflow on x axis */
+   overflow-x: hidden;
+}
+
+body {
+   background-image: linear-gradient(to bottom, gray, #141414);
+}
+
+h1 { 
+   font-size: 3em; 
+   font-weight: bold; 
+   margin-top: 0;
+}
+
+/* P2 Orange Theme Button */
+.btn-phaseTwo {
+   background-color: orange;
+   color: black;
+   border-radius: .5em;
+   border-width: .2em;
+   
+   /* 3d effect */
+   -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+   -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+/* P2 Orange Theme Button Hover Action */
+.btn-phaseTwo:hover {
+   background-color: #a56601;
+}
+
+/* P2 Active */
+.active-phaseTwo {
+   background-color: #1a1a1a;
+   color: #1a1a1a;
+}
+
+.panel-phaseTwo {
+   border-color: black;
+   -webkit-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+   -moz-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+   box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+}
+
+.panel-phaseTwo .panel-heading {
+   background-color: #1a1a1a;
+   border-bottom: .2em solid black;
+   /* border cut off at edges */
+   color: #999999;
+}
+
+.panel-phaseTwo .panel-body {
+   background-color: #292929;
+   color: #999999;
+}
+
+.p2background {
+   background-color: #999999;
+   color: black;
+   border: 0;
+   font-weight: bold;
+}
+
+/* !important to override bootstrap */
+::placeholder {
+   color: black !important;
+   opacity: .5 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------- Header ------- */
+#topHeaderRow a {
+   margin-top: 1.2em;
+   margin-right: .3em;
+}
+
+img {
+   /* format logo */
+   float: left;
+   width: 6%;
+   padding: .5em;
+   margin-left: .5em;
+
+   /* make white */
+   filter: invert(65%);
+}
+
+.toggle {
+   /* remove extra top space */
+   margin-top: -1.5em;
+
+   /* border - 3d effect */
+   -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+   -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+/* middle col */
+.container-adj {
+   width: 95%;
+   margin: auto;
+}
+
+
+.midColButtons {
+   border-style: solid;
+   border: solid gray;
+   border-width: .05em;
+   margin-left: -.2em;
+}
+
+.table {
+   border-collapse: collapse;
+   border: .009em solid gray;
+}
+
+
+
+
+
+
+
+/* side panel */
+.list-group-item {
+   border: 0;
+   padding-top: 1em;
+   padding-bottom: 1em;
+}
+
+.panelBody {
+   float: left;
+}
+
+.formHorizontal {
+   margin-bottom: .5em;
+}
+
+
+
+
+
+
+/* Footer */
+#copyright {
+   border-top: .1em solid #333333;
+   padding-top: .5em;
+   color:#333333;
+   text-decoration: none; 
+   padding-bottom: 1em;
+   margin-left: 3em;
+   margin-right: 3em;
+}
+
+#copyright a {
+   color:#333333;
+   text-decoration: none; 
+}
+
+
+
+

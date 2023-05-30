@@ -1,0 +1,102 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container mx-auto ">
+
+    <h1 class="text-4xl text-center font-bold mt-7">myWorkouts</h1> 
+    <!-- Additional Buttons -->
+    <div class="flex justify-center gap-4 mt-4">
+        <a href="#" class="bg-black hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">New Workout</a>
+        <a href="#" class="bg-black hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">Analytics</a>
+        <a href="#" class="bg-black hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">History</a>
+
+
+    </div>
+</div>
+
+<!-- Log Workout Section -->
+<div class="p-6 bg-gray-100 flex items-start justify-center">
+    <div class="px-10">
+
+        <div class="grid grid-cols-12 gap-4 gap-x-10">
+            
+
+            <!-- Left Side -->
+            <div class="col-span-5 space-y-6">
+                
+                <!-- First Form -->
+                {% include 'tracking/workout_form2.html' %}
+                
+                <!-- Second Form -->
+                {% comment %} {% include 'tracking/workout_form2.html' %} {% endcomment %}
+            </div>
+
+
+
+
+            
+            {% comment %} <!-- Third Form -->
+            <div class="col-span-7">
+                <h2 class="font-bold text-3xl text-black mb-1">Pending Workout Entry</h2>
+
+                <div class="border-2 rounded-lg p-4 mt-4 shadow-lg">
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <!-- Search By Date -->
+                        <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                            <label for="viewDate" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Date:</label>
+                            <input type="date" id="viewDate" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="date">
+                        </div>
+
+                        <!-- Search Exercise Name -->
+                        <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                            <label for="workout" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Search Exercise:</label>
+                            <input type="text" id="workout" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="workout">
+                        </div>
+
+                        <!-- Dropdown of Exercises -->
+                        <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                            <label for="exercise" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Select Exercise:</label>
+                            <select id="exercise" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="exercise">
+                                <option value="">Select Exercise</option>
+                                <option value="Squat">Squat</option>
+                                <option value="Bench Press">Bench Press</option>
+                                <!-- Add more options here -->
+                            </select>
+                        </div>
+
+                        <!-- Table Order By -->
+                        <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                            <label for="filter" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Order By:</label>
+                            <select id="filter" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="filter">
+                                <option value="Recent">Date</option>
+                                <option value="Weight">Weight</option>
+                                <!-- Add more options here -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="workout-log-table">
+                        {% include 'tracking/workout_table.html' %}
+                    </div>
+
+                    <div class="mt-6">
+                        <!-- Pagination Buttons -->
+                        <nav class="block">
+                            <ul class="flex pl-0 rounded list-none flex-wrap">
+                                <li><a class="first page-link" href="#">&laquo;</a></li>
+                                <li><a class="page-link active" href="#">1</a></li>
+                                <li><a class="page-link" href="#">2</a></li>
+                                <!-- Add more pagination buttons here -->
+                                <li><a class="last page-link" href="#">&raquo;</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div> {% endcomment %}
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

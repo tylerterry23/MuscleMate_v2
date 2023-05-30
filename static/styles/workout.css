@@ -1,0 +1,13 @@
+.table {
+    color: black;
+    background-color: #999999;
+}
+
+.table > tbody > tr {
+    border: .15em solid black;
+}
+
+.pagination {
+    margin-bottom: -.3em;
+    margin-top: -.3em;
+}
